@@ -3,6 +3,8 @@
 #include <Wire.h>      // Include the Wire library for I2C
 #include "DHT.h"       // Include the DHT library for humidity and temperature
 
+#include "sensorsManager.h"
+
 #define DHTPIN 10     // Change this to the pin you have connected the DHT sensor to
 #define DHTTYPE DHT11 // Change this to whatever type of DHT sensor you are using (DHT11, DHT22, etc.)
 
@@ -11,6 +13,8 @@ hp_BH1750 BH1750;         //  create the sensor
 
 void setup()
 {
+    SensorsManager sensorsManager {};
+
     Serial.begin(115200);
     Wire.begin(6, 7); // Initialize the I2C communication
     dht.begin();      // Initialize the DHT sensor
