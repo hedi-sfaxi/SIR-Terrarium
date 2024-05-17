@@ -1,0 +1,5 @@
+version: '1'
+application: IOTstack
+service: InfluxDB
+comment: InfluxDB Build Options
+databasePasswordOption: Do nothing

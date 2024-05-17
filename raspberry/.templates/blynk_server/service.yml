@@ -1,0 +1,19 @@
+blynk_server:
+  build:
+    context: ./.templates/blynk_server/.
+    args:
+      - BLYNK_SERVER_VERSION=0.41.16
+  container_name: blynk_server
+  restart: unless-stopped
+  environment:
+    - TZ=Etc/UTC
+    - IOTSTACK_UID=1000
+    - IOTSTACK_GID=1000
+  ports:
+    - "8180:8080"
+    - "8440:8440"
+    - "9444:9443"
+  volumes:
+    - ./volumes/blynk_server/data:/data
+    - ./volumes/blynk_server/config:/config
+

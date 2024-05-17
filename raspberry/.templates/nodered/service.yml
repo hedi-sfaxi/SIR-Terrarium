@@ -1,0 +1,16 @@
+nodered:
+  container_name: nodered
+  build:
+    context: ./services/nodered/.
+    args:
+      - DOCKERHUB_TAG=latest
+      - EXTRA_PACKAGES=
+  restart: unless-stopped
+  user: "0"
+  environment:
+    - TZ=${TZ:-Etc/UTC}
+  ports:
+    - "1880:1880"
+  volumes:
+    - ./volumes/nodered/data:/data
+    - ./volumes/nodered/ssh:/root/.ssh
