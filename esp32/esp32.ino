@@ -1,16 +1,18 @@
-#include <Arduino.h>
 #include "sensorsManager.h"
 
-SensorsManager sensorsManager {};
+SensorsManager sensorsManager;
 
 void setup()
 {
-    Serial.begin(115200);
+  Serial.begin(115200);
+  Serial.println("Setting up");
+  sensorsManager.init();
 }
 
 void loop()
 {
     // Light intensity measurement
+    Serial.println("Luminosite flag");
     Serial.println("Luminosite = " + String(sensorsManager.getLightIntensity()) + " lux");
 
     // Temperature and humidity measurement

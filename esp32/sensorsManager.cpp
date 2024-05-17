@@ -1,6 +1,8 @@
 #include "sensorsManager.h"
 
-SensorsManager::SensorsManager() : lightSensor(), dhtSensor(DHTPIN, DHTTYPE) {
+void SensorsManager::init() {
+    Serial.println("Initializing sensors");
+    
     Wire.begin(6, 7);       // Initialize the I2C communication
     dhtSensor.begin();      // Initialize the DHT sensor
 

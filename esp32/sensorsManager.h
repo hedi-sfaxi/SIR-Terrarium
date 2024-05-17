@@ -11,11 +11,13 @@
 
 class SensorsManager {
     private:
-        hp_BH1750 lightSensor;
-        DHT dhtSensor;
+        hp_BH1750 lightSensor{};
+        DHT dhtSensor{DHTPIN, DHTTYPE};
 
     public:
-        SensorsManager();
+        inline SensorsManager(){};
+
+        void init();
 
         // hp_BH1750 lightSensor 
         float getLightIntensity();
