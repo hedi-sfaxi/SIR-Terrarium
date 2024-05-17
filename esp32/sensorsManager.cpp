@@ -25,3 +25,12 @@ float SensorsManager::getHumidity() {
 int SensorsManager::getSoilMoisture() {
     return analogRead(0);
 }
+
+StaticJsonDocument<80> SensorsManager::exportJsonData() {
+    StaticJsonDocument<80> doc;
+    doc["lightIntensity"] = getLightIntensity();
+    doc["temperature"] = getTemperature();
+    doc["humidity"] = getHumidity();
+    doc["soilMoisture"] = getSoilMoisture();
+    return doc;
+}
