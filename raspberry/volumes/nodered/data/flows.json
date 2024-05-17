@@ -1,0 +1,122 @@
+[
+    {
+        "id": "3be5a0934ad57c2a",
+        "type": "tab",
+        "label": "Flux 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "706961626330ec25",
+        "type": "mqtt-broker",
+        "name": "MQTT Docker",
+        "broker": "192.168.0.2",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "f6220e32e145d684",
+        "type": "influxdb",
+        "hostname": "192.168.0.2",
+        "port": "8086",
+        "protocol": "http",
+        "database": "sensor_data",
+        "name": "",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "1.x",
+        "url": "http://localhost:8086",
+        "timeout": "10",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "db9a628f62bc4cb5",
+        "type": "mqtt in",
+        "z": "3be5a0934ad57c2a",
+        "name": "/home/sensors",
+        "topic": "/home/sensors",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "706961626330ec25",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 160,
+        "wires": [
+            [
+                "e09f13694b06d496"
+            ]
+        ]
+    },
+    {
+        "id": "e09f13694b06d496",
+        "type": "change",
+        "z": "3be5a0934ad57c2a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{    \"temperature\": msg.payload.temperature,    \"humidity\": msg.payload.humidity,    \"light\": msg.payload.lightIntensity}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 160,
+        "wires": [
+            [
+                "8868628b7caba69a"
+            ]
+        ]
+    },
+    {
+        "id": "8868628b7caba69a",
+        "type": "influxdb out",
+        "z": "3be5a0934ad57c2a",
+        "influxdb": "f6220e32e145d684",
+        "name": "",
+        "measurement": "sensor_data",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 770,
+        "y": 160,
+        "wires": []
+    }
+]

@@ -35,3 +35,5 @@ credentials.json
 *.bak
 *.old
 *.backup
+raspberry/backups/
+raspberry/.templates

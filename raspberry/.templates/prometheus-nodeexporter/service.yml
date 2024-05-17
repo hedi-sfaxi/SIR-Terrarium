@@ -1,7 +1,0 @@
-prometheus-nodeexporter:
-  container_name: prometheus-nodeexporter
-  image: prom/node-exporter:latest
-  restart: unless-stopped
-  expose:
-    - "9100"
-
