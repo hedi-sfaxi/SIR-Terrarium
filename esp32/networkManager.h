@@ -9,14 +9,18 @@
 class WiFiController
 {
 public:
-    WiFiController(const char *ssid, const char *password);
+    inline WiFiController(const char *ssid, const char *password)
+    {
+        this->ssid = ssid;
+        this->password = password;
+    };
 
     void connect();
     bool isConnected();
     IPAddress getLocalIP();
     IPAddress getGatewayIP();
-    void setPassword(const char *password);
-    void setSSID(const char *ssid);
+    inline void setPassword(const char *password) { this->password = password; };
+    inline void setSSID(const char *ssid) { this->ssid = ssid; };
 
 private:
     const char *ssid;
@@ -27,17 +31,15 @@ class DataBroker
 {
 
 public:
-    DataBroker(const char *mqtt_server, int mqtt_port);
+    inline DataBroker(){};
 
     void reconnect();
     void publish(const char *topic);
     bool isConnected();
-    void setData(StaticJsonDocument<80> data);
-    void init();
+    inline void setData(StaticJsonDocument<80> data) { this->data = data; };
+    void init(const char *mqtt_server, const int mqtt_port);
 
 private:
-    const char *mqtt_server;
-    int mqtt_port;
     WiFiClient espClient;
     PubSubClient client = PubSubClient(espClient);
     StaticJsonDocument<80> data;

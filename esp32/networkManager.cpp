@@ -1,12 +1,5 @@
 #include "networkManager.h"
 
-WiFiController::WiFiController(const char *ssid, const char *password)
-{
-    this->ssid = ssid;
-    this->password = password;
-    Serial.print("hello");
-}
-
 // connect to a network
 void WiFiController::connect()
 {
@@ -31,36 +24,14 @@ IPAddress WiFiController::getGatewayIP()
     return WiFi.gatewayIP();
 }
 
-// setters
-void WiFiController::setPassword(const char *password)
+void DataBroker::init(const char *mqtt_server, const int mqtt_port)
 {
-    this->password = password;
-}
-
-void WiFiController::setSSID(const char *ssid)
-{
-    this->ssid = ssid;
-}
-
-DataBroker::DataBroker(const char *mqtt_server, const int mqtt_port)
-{
-    this->mqtt_server = mqtt_server;
-    this->mqtt_port = mqtt_port;
-}
-
-void DataBroker::init()
-{
-    this->client.setServer(this->mqtt_server, this->mqtt_port);
+    this->client.setServer(mqtt_server, mqtt_port);
 }
 
 bool DataBroker::isConnected()
 {
     return this->client.connected();
-}
-
-void DataBroker::setData(StaticJsonDocument<80> data)
-{
-    this->data = data;
 }
 
 void DataBroker::reconnect()
