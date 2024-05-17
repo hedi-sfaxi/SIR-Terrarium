@@ -12,4 +12,14 @@ class SensorsManager {
 
     public:
         SensorsManager();
+
+        // hp_BH1750 lightSensor 
+        float getLightIntensity();
+
+        // DHT sensor
+        float getTemperature();
+        float getHumidity();
+
+        // Soil moisture sensor
+        int getSoilMoisture();
 };
