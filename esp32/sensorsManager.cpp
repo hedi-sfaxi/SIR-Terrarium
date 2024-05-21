@@ -30,9 +30,9 @@ int SensorsManager::getSoilMoisture() {
 
 StaticJsonDocument<80> SensorsManager::exportJsonData() {
     StaticJsonDocument<80> doc;
-    doc["lightIntensity"] = getLightIntensity();
-    doc["temperature"] = getTemperature();
-    doc["humidity"] = getHumidity();
-    doc["soilMoisture"] = getSoilMoisture();
+    doc["l"] = getLightIntensity();
+    doc["t"] = getTemperature();
+    doc["h"] = getHumidity();
+    doc["m"] = getSoilMoisture();
     return doc;
 }

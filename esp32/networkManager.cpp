@@ -61,5 +61,6 @@ void DataBroker::publish(const char *topic)
 {
     char buffer[80];
     serializeJson(this->data, buffer);
+    Serial.println(buffer);
     this->client.publish(topic, buffer);
 }
