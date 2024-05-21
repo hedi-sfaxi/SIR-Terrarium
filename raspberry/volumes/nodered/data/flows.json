@@ -11,7 +11,7 @@
         "id": "706961626330ec25",
         "type": "mqtt-broker",
         "name": "MQTT Docker",
-        "broker": "192.168.0.2",
+        "broker": "192.168.85.85",
         "port": "1883",
         "clientid": "",
         "autoConnect": true,
@@ -41,7 +41,7 @@
     {
         "id": "f6220e32e145d684",
         "type": "influxdb",
-        "hostname": "192.168.0.2",
+        "hostname": "192.168.85.85",
         "port": "8086",
         "protocol": "http",
         "database": "sensor_data",
@@ -70,34 +70,7 @@
         "y": 160,
         "wires": [
             [
-                "e09f13694b06d496"
-            ]
-        ]
-    },
-    {
-        "id": "e09f13694b06d496",
-        "type": "change",
-        "z": "3be5a0934ad57c2a",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{    \"temperature\": msg.payload.temperature,    \"humidity\": msg.payload.humidity,    \"light\": msg.payload.lightIntensity}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 410,
-        "y": 160,
-        "wires": [
-            [
-                "8868628b7caba69a"
+                "a1164e30a2d6f969"
             ]
         ]
     },
@@ -115,8 +88,35 @@
         "retentionPolicyV18Flux": "",
         "org": "organisation",
         "bucket": "bucket",
-        "x": 770,
+        "x": 800,
         "y": 160,
         "wires": []
+    },
+    {
+        "id": "a1164e30a2d6f969",
+        "type": "change",
+        "z": "3be5a0934ad57c2a",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"temperature\": msg.payload.t,\t    \"humidity\": msg.payload.h,\t    \"light\": msg.payload.l,\t    \"moisture\": msg.payload.m\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 450,
+        "y": 160,
+        "wires": [
+            [
+                "8868628b7caba69a"
+            ]
+        ]
     }
 ]
