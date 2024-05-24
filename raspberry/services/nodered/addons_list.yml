@@ -1,5 +1,5 @@
 version: '1'
-application: IOTstack
+application: SirTerrarium
 service: nodered
 comment: Selected addons
 dockerFileInstallCommand: "RUN cd /usr/src/node-red && npm install --save "
