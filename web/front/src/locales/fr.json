@@ -3,5 +3,9 @@
         "title": "SIR - Terrarium",
         "dashboard": "Tableau de bord",
         "control": "Contrôles"
+    },
+    "controlView": {
+        "irrigate": "arroser",
+        "light": "alummer la lumière"
     }
 }

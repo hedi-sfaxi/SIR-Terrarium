@@ -3,5 +3,9 @@
     "title": "SIR - Terrarium",
     "dashboard": "Dashboards",
     "control": "Controls"
+  },
+  "contolview": {
+    "irrigate": "irrigate",
+    "light": "turn on the light"
   }
 }
