@@ -1,45 +1,60 @@
-#include <Arduino.h>
-#include <hp_BH1750.h> // Include the library for the BH1750 light sensor
-#include <Wire.h>      // Include the Wire library for I2C
-#include "DHT.h"       // Include the DHT library for humidity and temperature
+#include "sensorsManager.h"
+#include "networkManager.h"
 
-#define DHTPIN 10     // Change this to the pin you have connected the DHT sensor to
-#define DHTTYPE DHT11 // Change this to whatever type of DHT sensor you are using (DHT11, DHT22, etc.)
-
-DHT dht(DHTPIN, DHTTYPE); // Create the DHT sensor object
-hp_BH1750 BH1750;         //  create the sensor
+SensorsManager sensorsManager;
+WiFiController wc = WiFiController("your_wifi_ssid", "your_wifi_password");
+DataBroker broker;
+long lastMsg = 0;
 
 void setup()
 {
-    Serial.begin(115200);
-    Wire.begin(6, 7); // Initialize the I2C communication
-    dht.begin();      // Initialize the DHT sensor
-    // Initialize the BH1750 sensor
-    bool avail = BH1750.begin(BH1750_TO_GROUND);
-    if (!avail)
-    {
-        Serial.println("No BH1750 sensor found!");
-        while (true)
-        {
-        };
-    }
+  Serial.begin(115200);
+  while (!Serial);
+  Serial.println("Setting up");
+  sensorsManager.init();
+
+  Serial.println();
+  Serial.print("Connecting");
+  wc.connect();
+  while (!wc.isConnected())
+  {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.print("IP address: ");
+  Serial.println(wc.getLocalIP());
+
+  Serial.println("Let's init the broker");
+  broker.init("192.168.85.85", 1883);
 }
 
 void loop()
 {
+  if (!broker.isConnected())
+  {
+    broker.reconnect();
+  }
+
+  long now = millis();
+
+  if (now - lastMsg > 5000)
+  {
+    lastMsg = now;
     // Light intensity measurement
-    BH1750.start();
-    float lux = BH1750.getLux();
-    Serial.println("Luminosite = " + String(lux) + " lux");
+    Serial.println("Luminosite = " + String(sensorsManager.getLightIntensity()) + " lux");
 
     // Temperature and humidity measurement
-    Serial.println("Temperature = " + String(dht.readTemperature()) + " °C");
-    Serial.println("Humidite de l'air = " + String(dht.readHumidity()) + " %");
+    Serial.println("Temperature = " + String(sensorsManager.getTemperature()) + " °C");
+    Serial.println("Humidite de l'air = " + String(sensorsManager.getHumidity()) + " %");
 
     // Soil moisture measurement
-    int soilMoistureValue;
-    soilMoistureValue = analogRead(0); // connect sensor to Analog 0
-    Serial.println("Humidite du sol = " + String(soilMoistureValue));
+    Serial.println("Humidite du sol = " + String(sensorsManager.getSoilMoisture()));
 
-    delay(2000); // Delay to slow down the loop for easier reading
+    StaticJsonDocument<80> doc = sensorsManager.exportJsonData();
+
+    broker.setData(doc);
+    broker.publish("/home/sensors");
+  }
 }
