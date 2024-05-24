@@ -1,1 +1,5 @@
-{}
+{
+  "devDependencies": {
+    "vue-cli-plugin-i18n": "~2.3.2"
+  }
+}

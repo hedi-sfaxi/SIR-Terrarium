@@ -3,8 +3,15 @@ module.exports = defineConfig({
   transpileDependencies: true,
 
   pluginOptions: {
-    vuetify: {
-			// https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vuetify-loader
-		}
+    vuetify: {},
+    i18n: {
+      locale: 'en',
+      fallbackLocale: 'fr',
+      localeDir: 'locales',
+      enableLegacy: true,
+      runtimeOnly: false,
+      compositionOnly: true,
+      fullInstall: true
+    }
   }
 })
