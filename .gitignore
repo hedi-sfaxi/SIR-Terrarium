@@ -35,3 +35,8 @@ credentials.json
 *.bak
 *.old
 *.backup
+raspberry/backups/
+raspberry/.templates
+
+# Ignore influxdb sensor data
+raspberry/volumes/influxdb/data/data/*
