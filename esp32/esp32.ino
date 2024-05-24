@@ -2,7 +2,7 @@
 #include "networkManager.h"
 
 SensorsManager sensorsManager;
-WiFiController wc = WiFiController("Mot de passe = free", "azera123");
+WiFiController wc = WiFiController("your_wifi_ssid", "your_wifi_password");
 DataBroker broker;
 long lastMsg = 0;
 
