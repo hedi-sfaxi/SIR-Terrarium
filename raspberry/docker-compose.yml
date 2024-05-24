@@ -92,3 +92,15 @@ services:
     volumes:
     - ./volumes/nodered/data:/data
     - ./volumes/nodered/ssh:/root/.ssh
+
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    restart: unless-stopped
+    ports:
+    - "8080:80"
+    volumes:
+    - ./volumes/nginx/conf.d:/etc/nginx/conf.d
+    - ./volumes/nginx/html:/usr/share/nginx/html
+    environment:
+    - TZ=${TZ:-Etc/UTC}
