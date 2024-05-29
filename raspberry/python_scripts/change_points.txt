@@ -1,3 +1,0 @@
-Detected change points:
-55
-111
