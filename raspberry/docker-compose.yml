@@ -22,6 +22,13 @@ services:
     - TZ=Etc/UTC
     - GF_PATHS_DATA=/var/lib/grafana
     - GF_PATHS_LOGS=/var/log/grafana
+    - GF_SMTP_ENABLED=true
+    - GF_SMTP_HOST=smtp-mail.outlook.com:587
+    - GF_SMTP_USER=sirprojectco@outlook.com
+    - GF_SMTP_PASSWORD=Aqzsedrft123
+    - GF_SMTP_SKIP_VERIFY=true
+    - GF_SMTP_FROM_NAME=grafana
+    - GF_SMTP_FROM_ADDRESS=sirprojectco@outlook.com
     volumes:
     - ./volumes/grafana/data:/var/lib/grafana
     - ./volumes/grafana/log:/var/log/grafana
