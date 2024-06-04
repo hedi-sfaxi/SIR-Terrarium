@@ -6,5 +6,19 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 
 export default createVuetify(
-  // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
+  {
+    theme: {
+      defaultTheme: 'sir',
+      themes: {
+        sir: {
+          variables: {},
+          colors: {
+            primary: "#3498db",
+            secondary: "#2ecc71",
+            accent: "#e74c3c",
+          }
+        }
+      }
+    }
+  }
 )
