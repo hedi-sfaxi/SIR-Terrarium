@@ -2,6 +2,7 @@ import uvicorn
 from fastapi import FastAPI, HTTPException
 from influxdb import InfluxDBClient
 from analysis import correlation, ruptures
+from sensor_node import irrigate
 
 
 app = FastAPI()
@@ -14,7 +15,8 @@ def get_root():
 
 @app.get("/irrigate")
 def get_irrigate():
-    # send irrigation control via mqtt
+    # send irrigation control to the mqtt broker via Node-Red
+    irrigate()
     return {"message": "The plants are being irrigated!"}
 
 @app.get("/ruptures")
