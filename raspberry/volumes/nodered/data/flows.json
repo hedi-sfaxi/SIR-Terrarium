@@ -8,6 +8,14 @@
         "env": []
     },
     {
+        "id": "2f17a4e7d893935f",
+        "type": "tab",
+        "label": "Flux 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "706961626330ec25",
         "type": "mqtt-broker",
         "name": "MQTT Docker",
@@ -118,5 +126,79 @@
                 "8868628b7caba69a"
             ]
         ]
+    },
+    {
+        "id": "8c8309179cd3b05a",
+        "type": "mqtt out",
+        "z": "2f17a4e7d893935f",
+        "name": "/admin/controls",
+        "topic": "/admin/controls",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "706961626330ec25",
+        "x": 720,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "e3b99622087e362f",
+        "type": "http in",
+        "z": "2f17a4e7d893935f",
+        "name": "/controls",
+        "url": "/controls",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 140,
+        "wires": [
+            [
+                "dd4ab5457629a9d4"
+            ]
+        ]
+    },
+    {
+        "id": "dd4ab5457629a9d4",
+        "type": "change",
+        "z": "2f17a4e7d893935f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"irrigate\" : msg.payload.irrigate\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 140,
+        "wires": [
+            [
+                "8c8309179cd3b05a",
+                "4512b61efa6d9cc6"
+            ]
+        ]
+    },
+    {
+        "id": "4512b61efa6d9cc6",
+        "type": "http response",
+        "z": "2f17a4e7d893935f",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 700,
+        "y": 240,
+        "wires": []
     }
 ]

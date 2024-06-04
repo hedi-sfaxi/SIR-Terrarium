@@ -22,7 +22,6 @@ vendor/
 *.swp
 
 # Ignore environment-specific files
-.env
 .env.local
 .env.*.local
 .env.*.production
@@ -36,7 +35,11 @@ credentials.json
 *.old
 *.backup
 raspberry/backups/
-raspberry/.templates
 
 # Ignore influxdb sensor data
 raspberry/volumes/influxdb/data/data/*
+
+# python related
+__pycache__/
+*.pyc
+venv/

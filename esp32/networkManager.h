@@ -27,7 +27,7 @@ private:
     const char *password;
 };
 
-class DataBroker
+class DataBroker // TODO: Change the class name and update the main
 {
 
 public:
@@ -38,6 +38,8 @@ public:
     bool isConnected();
     inline void setData(StaticJsonDocument<80> data) { this->data = data; };
     void init(const char *mqtt_server, const int mqtt_port);
+    void callback(char *topic, byte *payload, unsigned int length);
+    inline void listen() { this->client.loop(); };
 
 private:
     WiFiClient espClient;
