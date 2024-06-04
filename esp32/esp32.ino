@@ -2,7 +2,7 @@
 #include "networkManager.h"
 
 SensorsManager sensorsManager;
-WiFiController wc = WiFiController("Mot de passe = free", "azera123");
+WiFiController wc = WiFiController("your_wifi_ssid", "your_wifi_password");
 DataBroker broker;
 long lastMsg = 0;
 
@@ -26,16 +26,16 @@ void setup()
   Serial.print("IP address: ");
   Serial.println(wc.getLocalIP());
 
-  //Serial.println("Let's init the broker");
-  //broker.init("192.168.85.85", 1883);
+  Serial.println("Let's init the broker");
+  broker.init("192.168.85.85", 1883);
 }
 
 void loop()
 {
-  //if (!broker.isConnected())
-  //{
-    //broker.reconnect();
-  //}
+  if (!broker.isConnected())
+  {
+    broker.reconnect();
+  }
 
   long now = millis();
 
@@ -55,7 +55,7 @@ void loop()
 
     StaticJsonDocument<80> doc = sensorsManager.exportJsonData();
 
-    //broker.setData(doc);
-    //broker.publish("/home/sensors");
+    broker.setData(doc);
+    broker.publish("/home/sensors");
   }
 }
