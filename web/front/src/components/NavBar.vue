@@ -1,9 +1,9 @@
 <template>
     <nav>
         <v-app-bar app color="white">
-            <v-app-bar-nav-icon @click="drawer = !drawer" class="black--text"></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon @click="drawer = !drawer" class="text-black"></v-app-bar-nav-icon>
             <v-toolbar-title>
-                <router-link to="/" class="secondary--text">{{ $t('nav.title') }}</router-link>
+                <router-link to="/" class="text-secondary">{{ $t('nav.title') }}</router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <LanguageSwitcher />
@@ -12,8 +12,8 @@
             <v-list>
                 <v-list-item v-for="item in items" :key="item.title" link @click="clickLinkInsideDiv($event)">
                     <v-list-item-title>
-                        <v-icon class="white--text">{{ item.icon }}</v-icon>
-                        <router-link :to="item.route" class="white--text">{{ $t(item.title) }}</router-link>
+                        <v-icon class="text-white mr-2">{{ item.icon }}</v-icon>
+                        <router-link :to="item.route" class="text-white">{{ $t(item.title) }}</router-link>
                     </v-list-item-title>
                 </v-list-item>
             </v-list>
