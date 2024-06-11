@@ -33,7 +33,7 @@ class SensorsManager {
         float getHumidity();
 
         // Soil moisture sensor
-        int getSoilMoisture();
+        float getSoilMoisture();
 
         // PH sensor
         float getPH();

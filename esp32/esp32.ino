@@ -50,7 +50,7 @@ void loop()
     Serial.println("Humidite de l'air = " + String(sensorsManager.getHumidity()) + " %");
 
     // Soil moisture measurement
-    Serial.println("Humidite du sol = " + String(sensorsManager.getSoilMoisture()));
+    Serial.println("Humidite du sol = " + String(sensorsManager.getSoilMoisture())+ " %RH");
     Serial.println("PH = " + String(sensorsManager.getPH()));
 
     StaticJsonDocument<80> doc = sensorsManager.exportJsonData();

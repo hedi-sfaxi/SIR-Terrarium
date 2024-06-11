@@ -27,6 +27,8 @@ float SensorsManager::getHumidity() {
     return dhtSensor.readHumidity();
 }
 
+
+
 float SensorsManager::getPH() {
       float voltage, phValue, temperature;
       temperature = getTemperature();         
@@ -36,9 +38,24 @@ float SensorsManager::getPH() {
       return phValue;
 }
 
-int SensorsManager::getSoilMoisture() {
-    return analogRead(0);
+float SensorsManager::getSoilMoisture() {
+    // Read the raw value from the sensor connected to pin A0, for example
+    int rawValue = analogRead(0);
+
+    // Extreme sensor values for air and water
+    int airValue = 2590;  // Sensor value in free air (dry)
+    int waterValue = 1297;  // Sensor value in water (saturated)
+
+    // Calculate the relative humidity as a percentage
+    float humidity = ((float)(airValue - rawValue) / (airValue - waterValue)) * 100.0;
+
+    // Ensure that the humidity does not exceed 100% or fall below 0%
+    humidity = constrain(humidity, 0.0, 100.0);
+
+    return humidity;
 }
+
+
 
 StaticJsonDocument<80> SensorsManager::exportJsonData() {
     StaticJsonDocument<80> doc;
