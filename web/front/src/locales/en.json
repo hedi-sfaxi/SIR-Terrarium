@@ -1,0 +1,11 @@
+{
+	"nav": {
+		"title": "SIR - Terrarium",
+		"dashboard": "Dashboards",
+		"control": "Controls"
+	},
+	"controlView": {
+		"irrigate": "irrigate",
+		"light": "turn on the light"
+	}
+}
