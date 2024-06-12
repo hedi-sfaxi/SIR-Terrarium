@@ -37,9 +37,3 @@ credentials.json
 raspberry/backups/
 
 # Ignore influxdb sensor data
-raspberry/volumes/influxdb/data/data/*
-
-# python related
-__pycache__/
-*.pyc
-venv/
