@@ -1,16 +1,11 @@
 <template>
     <v-footer class="bg-indigo-lighten-1 text-center d-flex flex-column mt-5">
         <div>
-            <v-btn v-for="el in links" :key="el.icon" class="mx-4 black--text" :href="el.link" target="_blank"
-                plain>
-                <v-icon>
+            <a v-for="el in links" :key="el.icon" class="mx-4 text-black" :href="el.link" target="_blank" plain>
+                <v-icon class="mdi mdi-github-face">
                     {{ el.icon }}
                 </v-icon>
-            </v-btn>
-        </div>
-
-        <div class="pt-0">
-            Texte du footer
+            </a>
         </div>
 
         <v-divider></v-divider>
@@ -26,7 +21,7 @@ export default {
     name: 'FooterBar',
     data: () => ({
         links: [
-            { icon: 'mdi-github', link: "" }
+            { icon: 'mdi-github', link: "https://github.com/hedi-sfaxi/SIR-Terrarium" }
         ],
     }),
 }
