@@ -7,7 +7,7 @@ from sensor_node import irrigate
 
 app = FastAPI()
 influxDbClient = InfluxDBClient(host='influxdb', port=8086)
-AUTHORIZED_COLUMNS = ['temperature', 'humidity', 'light', 'moisture', 'ph']
+AUTHORIZED_COLUMNS = ['temperature', 'humidity', 'light', 'moisture', 'pH']
 
 @app.get("/")
 def get_root():
