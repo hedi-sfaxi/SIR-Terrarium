@@ -36,4 +36,8 @@ credentials.json
 *.backup
 raspberry/backups/
 
+# Python related files and folders
+__pycache__/
+venv/
+
 # Ignore influxdb sensor data
