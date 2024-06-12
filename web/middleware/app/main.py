@@ -6,7 +6,7 @@ from sensor_node import irrigate
 
 
 app = FastAPI()
-influxDbClient = InfluxDBClient(host='localhost', port=8086)
+influxDbClient = InfluxDBClient(host='influxdb', port=8086)
 AUTHORIZED_COLUMNS = ['temperature', 'humidity', 'light', 'moisture', 'ph']
 
 @app.get("/")
@@ -22,7 +22,7 @@ def get_irrigate():
 @app.get("/ruptures")
 def get_rupture():
     # launch rupture analysis
-    ruptures(AUTHORIZED_COLUMNS)
+    ruptures(influxDbClient, AUTHORIZED_COLUMNS)
 
     return {"message": "Rupture analysis completed"}
 
