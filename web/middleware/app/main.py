@@ -6,8 +6,8 @@ from sensor_node import irrigate
 
 
 app = FastAPI()
-influxDbClient = InfluxDBClient(host='localhost', port=8086)
-AUTHORIZED_COLUMNS = ['temperature', 'humidity', 'light', 'moisture']
+influxDbClient = InfluxDBClient(host='influxdb', port=8086)
+AUTHORIZED_COLUMNS = ['temperature', 'humidity', 'light', 'moisture', 'pH']
 
 @app.get("/")
 def get_root():
@@ -22,7 +22,7 @@ def get_irrigate():
 @app.get("/ruptures")
 def get_rupture():
     # launch rupture analysis
-    ruptures(AUTHORIZED_COLUMNS)
+    ruptures(influxDbClient, AUTHORIZED_COLUMNS)
 
     return {"message": "Rupture analysis completed"}
 
@@ -40,4 +40,4 @@ def get_correlation(param1 : str, param2 : str):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8082, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8082, reload=True)

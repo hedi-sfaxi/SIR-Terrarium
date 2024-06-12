@@ -1,6 +1,6 @@
 import requests
 
-NODERED_URL = 'http://localhost:1880'
+NODERED_URL = 'http://nodered:1880'
 
 """
 Calls the Node-Red http in to launch irrigation
