@@ -102,7 +102,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\t    \"temperature\": msg.payload.t,\t    \"humidity\": msg.payload.h,\t    \"light\": msg.payload.l,\t    \"moisture\": msg.payload.m\t}",
+                "to": "{\t    \"temperature\": msg.payload.t,\t    \"humidity\": msg.payload.h,\t    \"light\": msg.payload.l,\t    \"moisture\": msg.payload.m,\t    \"pH\": msg.payload.p\t}",
                 "tot": "jsonata"
             }
         ],

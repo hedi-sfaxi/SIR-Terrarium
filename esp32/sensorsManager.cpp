@@ -9,6 +9,9 @@ void SensorsManager::init() {
     // Initialize the BH1750 sensor
     bool avail = lightSensor.begin(BH1750_TO_GROUND);
     if (!lightSensor.begin(BH1750_TO_GROUND)) Serial.println("[Error] No BH1750 sensor found!");
+
+    EEPROM.begin(32);//needed to permit storage of calibration value in eeprom
+	  ph.begin();
 }
 
 float SensorsManager::getLightIntensity() {
@@ -24,9 +27,35 @@ float SensorsManager::getHumidity() {
     return dhtSensor.readHumidity();
 }
 
-int SensorsManager::getSoilMoisture() {
-    return analogRead(0);
+
+
+float SensorsManager::getPH() {
+      float voltage, phValue, temperature;
+      temperature = getTemperature();         
+      voltage = analogRead(PH_PIN)/1024.0*5000;  // read the voltage
+      phValue = ph.readPH(voltage,temperature);  // convert voltage to pH with temperature compensation
+      ph.calibration(voltage,temperature);       // calibration process by Serail CMD
+      return phValue;
 }
+
+float SensorsManager::getSoilMoisture() {
+    // Read the raw value from the sensor connected to pin A0, for example
+    int rawValue = analogRead(0);
+
+    // Extreme sensor values for air and water
+    int airValue = 2590;  // Sensor value in free air (dry)
+    int waterValue = 1297;  // Sensor value in water (saturated)
+
+    // Calculate the relative humidity as a percentage
+    float humidity = ((float)(airValue - rawValue) / (airValue - waterValue)) * 100.0;
+
+    // Ensure that the humidity does not exceed 100% or fall below 0%
+    humidity = constrain(humidity, 0.0, 100.0);
+
+    return humidity;
+}
+
+
 
 StaticJsonDocument<80> SensorsManager::exportJsonData() {
     StaticJsonDocument<80> doc;
@@ -34,5 +63,6 @@ StaticJsonDocument<80> SensorsManager::exportJsonData() {
     doc["t"] = getTemperature();
     doc["h"] = getHumidity();
     doc["m"] = getSoilMoisture();
+    doc["p"] = getPH();
     return doc;
 }
