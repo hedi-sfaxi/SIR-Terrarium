@@ -11,7 +11,7 @@
 export default {
     name: 'DashboardView',
     data: () => ({
-        grafanaBaseUrl: 'http://grafana:3000' // "http://192.168.69.85:3000" // for debug
+        grafanaBaseUrl: process.env.VUE_APP_GRAFANA_BASE_URL
     }),
 }
 </script>
