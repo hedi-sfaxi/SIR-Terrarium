@@ -40,4 +40,7 @@ raspberry/backups/
 __pycache__/
 venv/
 
+# Ignore vue.js build files
+dist/
+
 # Ignore influxdb sensor data
