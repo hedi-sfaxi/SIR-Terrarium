@@ -1,20 +1,27 @@
 <template>
-    <div class="grid-container">
-        <div class="center" style="margin: 30px;">
-            <v-btn v-for="action in actions" :key="action" @click="handleButtonClick(action.value)"
-                style="margin-right: 10px;">
-                <v-icon left>{{ action.icon }}</v-icon>
-                {{ $t(action.value) }}
-            </v-btn>
-        </div>
-        <div class="center" style="margin: 10px;">
-            <!-- Renders an image element with a live image of the terrarium (updated every half hour?) -->
-            <img :src="imageSrc" alt="Terrarium Live Image" style="width: 500px;">
-        </div>
-    </div>
+    <v-container class="d-flex flex-column">
+        <SimpleSection title="Test">
+            <div class="grid-container">
+                <div class="center" style="margin: 30px;">
+                    <v-btn v-for="action in actions" :key="action" @click="handleButtonClick(action.value)"
+                        style="margin-right: 10px;">
+                        <v-icon left>{{ action.icon }}</v-icon>
+                        {{ $t(action.value) }}
+                    </v-btn>
+                </div>
+                <div class="center" style="margin: 10px;">
+                    <img :src="imageSrc" alt="Terrarium Live Image" style="width: 500px;">
+                </div>
+            </div>
+        </SimpleSection>
+        <SimpleSection title="Test2">
+
+        </SimpleSection>
+    </v-container>
 </template>
 
 <script>
+import SimpleSection from '../components/SimpleSection.vue';
 export default {
     data() {
         return {
@@ -24,6 +31,9 @@ export default {
                 { icon: 'mdi-lightbulb', value: 'controlView.light' }
             ]
         };
+    },
+    components: {
+        SimpleSection
     },
     methods: {
         handleButtonClick(action) {

@@ -22,7 +22,6 @@ vendor/
 *.swp
 
 # Ignore environment-specific files
-.env
 .env.local
 .env.*.local
 .env.*.production
@@ -37,5 +36,11 @@ credentials.json
 *.backup
 raspberry/backups/
 
-# Ignore influxdb sensor data
+# Python related files and folders
+__pycache__/
+venv/
 
+# Ignore vue.js build files
+dist/
+
+# Ignore influxdb sensor data

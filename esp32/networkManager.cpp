@@ -27,6 +27,8 @@ IPAddress WiFiController::getGatewayIP()
 void DataBroker::init(const char *mqtt_server, const int mqtt_port)
 {
     this->client.setServer(mqtt_server, mqtt_port);
+    client.setCallback(callback);
+    client.subscribe("/admin/controls");
 }
 
 bool DataBroker::isConnected()
@@ -63,4 +65,17 @@ void DataBroker::publish(const char *topic)
     serializeJson(this->data, buffer);
     Serial.println(buffer);
     this->client.publish(topic, buffer);
+}
+
+void DataBroker::callback(char *topic, byte *payload, unsigned int length)
+{
+    Serial.print("Message arrived in topic: ");
+    Serial.println(topic);
+    Serial.print("Message:");
+    for (int i = 0; i < length; i++)
+    {
+        Serial.print((char)payload[i]);
+    }
+    Serial.println();
+    Serial.println("-----------------------");
 }

@@ -28,6 +28,12 @@ services:
       - GF_SMTP_SKIP_VERIFY=true
       - GF_SMTP_FROM_NAME=grafana
       - GF_SMTP_FROM_ADDRESS=sirprojectco@outlook.com
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_NAME=Main Org.
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s:%(http_port)s/grafana/
     volumes:
       - ./volumes/grafana/data:/var/lib/grafana
       - ./volumes/grafana/log:/var/log/grafana
@@ -108,18 +114,18 @@ services:
 
   nginx:
     container_name: nginx
-    image: nginx:latest
+    build: ../web/front
     restart: unless-stopped
     ports:
       - "8080:80"
     volumes:
       - ./volumes/nginx/conf.d:/etc/nginx/conf.d
-      - ./volumes/nginx/html:/usr/share/nginx/html
     environment:
       - TZ=${TZ:-Etc/UTC}
 
   middleware:
     container_name: middleware
+    restart: unless-stopped
     build: ../web/middleware
     ports:
       - '8082:8082'
