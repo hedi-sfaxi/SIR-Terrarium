@@ -5,7 +5,7 @@
             <div class="mt-5">
                 <p class="mb-5">{{ $t("controlView.directActions.intro") }}</p>
                 <div class="d-flex justify-space-around">
-                    <v-btn color="primary" @click="handleButtonClick('water')">
+                    <v-btn color="primary" @click="irrigate()">
                         <v-icon>
                             mdi-water
                         </v-icon>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="d-flex justify-space-around">
                     <p>{{ $t("controlView.analysis.ruptureText") }}</p>
-                    <v-btn color="primary">
+                    <v-btn color="primary" @click="rupture">
                         {{ $t("controlView.analysis.rupture") }}
                     </v-btn>
                 </div>
@@ -56,12 +56,15 @@ export default {
         return {
             imageSrc: "https://img-3.journaldesfemmes.fr/55Pa2VVqjc0hXSevl8ddLxHV53Y=/1500x/smart/6f75f95c0d54470fa206aa78fe6ed3a8/ccmcms-jdf/39925288.jpg", // Replace with your image URL
             selectedMetrics: [],
-            items: this.getColumns()
+            items: []
         };
     },
     components: {
         SimpleSection,
         Snackbar
+    },
+    async mounted() {
+        this.items = await this.getColumns();
     },
     methods: {
         handleButtonClick(action) {
@@ -69,24 +72,31 @@ export default {
             console.log('Button clicked:', action);
         },
 
-        getColumns() {
+        async getColumns() {
             this.$store.commit('setVisible', true);
-            let message = utils.getColumns();
+            let message = await utils.getColumns();
             this.$store.commit('setColor', message.color);
             this.$store.commit('setText', message.text);
             return message.columns;
         },
 
-        correlate() {
+        async correlate() {
             this.$store.commit('setVisible', true);
-            let message = utils.correlate(this.selectedMetrics[0], this.selectedMetrics[1]);
+            let message = await utils.correlate(this.selectedMetrics[0], this.selectedMetrics[1]);
             this.$store.commit('setColor', message.color);
             this.$store.commit('setText', message.text);
         },
 
-        rupture() {
+        async rupture() {
             this.$store.commit('setVisible', true);
-            let message = utils.rupture();
+            let message = await utils.rupture();
+            this.$store.commit('setColor', message.color);
+            this.$store.commit('setText', message.text);
+        },
+
+        async irrigate() {
+            this.$store.commit('setVisible', true);
+            let message = await utils.irrigate();
             this.$store.commit('setColor', message.color);
             this.$store.commit('setText', message.text);
         }
