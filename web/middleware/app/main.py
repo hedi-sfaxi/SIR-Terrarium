@@ -11,7 +11,11 @@ AUTHORIZED_COLUMNS = ['temperature', 'humidity', 'light', 'moisture', 'pH']
 
 @app.get("/")
 def get_root():
-    return {"message": "Welcome to the middleware server!"}
+    return {"message": "Welcome to the middleware server! got to /docs to see the API documentation"}
+
+@app.get("/columns")	
+def get_authorized_columns():
+    return {"columns": AUTHORIZED_COLUMNS}
 
 @app.get("/irrigate")
 def get_irrigate():

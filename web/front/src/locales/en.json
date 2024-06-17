@@ -5,7 +5,28 @@
 		"control": "Controls"
 	},
 	"controlView": {
-		"irrigate": "irrigate",
-		"light": "turn on the light"
+		"analysis": {
+			"title": "ANALYSIS",
+			"rupture": "Rupture",
+			"correlation": "Correlation",
+			"ruptureText": "Update the rupture analysis",
+			"intro": "Here you can run analytics on the data collected by the sensors to better leverage the metrics."
+		},
+		"directActions": {
+			"title": "DIRECT ACTIONS",
+			"intro": "Here, you can perform actions directly on the terrarium.",
+			"irrigate": "Irrigate",
+			"light": "Turn on the light"
+		}
+	},
+	"utils": {
+		"columns_ok": "Metrics list fetched successfully",
+		"columns_ko": "Error fetching metrics list",
+		"rupture_ok": "Rupture analysis updated successfully",
+		"rupture_ko": "Error updating rupture analysis",
+		"correlation_ok": "Correlation analysis updated successfully",
+		"correlation_ko": "Error updating correlation analysis",
+		"irrigate_ok": "Irrigation started successfully",
+		"irrigate_ko": "Error starting irrigation"
 	}
 }
