@@ -5,7 +5,28 @@
         "control": "Contrôles"
     },
     "controlView": {
-        "irrigate": "arroser",
-        "light": "alummer la lumière"
+        "analysis": {
+            "title": "ANALYSES",
+            "rupture": "Rupture",
+            "correlation": "Correlation",
+            "ruptureText": "Mettre à jour l'analyse de rupture",
+            "intro": "Ici, vous pouvez exécuter des analyses sur les données collectées par les capteurs pour mieux exploiter les métriques."
+        },
+        "directActions": {
+            "title": "ACTIONS DIRECTES",
+            "intro": "Ici, vous pouvez effectuer des actions directement sur le terrarium.",
+            "irrigate": "Irriguer",
+            "light": "Allumer la lumière"
+        }
+    },
+    "utils": {
+        "columns_ok": "Liste des métriques récupérées avec succès",
+        "columns_ko": "Erreur lors de la récupération de la liste des métriques",
+        "rupture_ok": "Analyse de rupture mise à jour avec succès",
+        "rupture_ko": "Erreur lors de la mise à jour de l'analyse de rupture",
+        "correlation_ok": "Analyse de corrélation mise à jour avec succès",
+        "correlation_ko": "Erreur lors de la mise à jour de l'analyse de corrélation",
+        "irrigate_ok": "Irrigation démarrée avec succès",
+        "irrigate_ko": "Erreur lors du démarrage de l'irrigation"
     }
 }
