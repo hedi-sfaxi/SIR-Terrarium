@@ -10,7 +10,14 @@
 			"rupture": "Rupture",
 			"correlation": "Correlation",
 			"ruptureText": "Update the rupture analysis",
-			"intro": "Here you can run analytics on the data collected by the sensors to better leverage the metrics."
+			"intro": "Here you can run analytics on the data collected by the sensors to better leverage the metrics.",
+			"status": {
+				"success": "OK",
+				"inProgress": "In progress",
+				"error": "Error"
+			},
+			"correlationRunning": "Check the parameters and ensure that no correlation analysis is currently running.",
+			"ruptureRunning": "Ensure that no rupture analysis is currently running."
 		},
 		"directActions": {
 			"title": "DIRECT ACTIONS",
@@ -28,5 +35,6 @@
 		"correlation_ko": "Error updating correlation analysis",
 		"irrigate_ok": "Irrigation started successfully",
 		"irrigate_ko": "Error starting irrigation"
-	}
+	},
+	"": ""
 }

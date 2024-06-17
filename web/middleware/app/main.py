@@ -1,13 +1,15 @@
 import uvicorn
-from fastapi import FastAPI, HTTPException
+import uuid
+from fastapi import FastAPI, HTTPException, BackgroundTasks
 from influxdb import InfluxDBClient
 from analysis import correlation, ruptures
 from sensor_node import irrigate
-
+from utils import update_task_status, get_task_status, init_task_status
 
 app = FastAPI()
 influxDbClient = InfluxDBClient(host='influxdb', port=8086)
 AUTHORIZED_COLUMNS = ['temperature', 'humidity', 'light', 'moisture', 'pH']
+init_task_status()
 
 @app.get("/")
 def get_root():
@@ -24,23 +26,34 @@ def get_irrigate():
     return {"message": "The plants are being irrigated!"}
 
 @app.get("/ruptures")
-def get_rupture():
+def get_rupture(background_tasks: BackgroundTasks):
     # launch rupture analysis
-    ruptures(influxDbClient, AUTHORIZED_COLUMNS)
+    taskId = str(uuid.uuid4())
+    update_task_status(taskId, "IN_PROGRESS")
+    background_tasks.add_task(ruptures, influxDbClient, AUTHORIZED_COLUMNS, taskId)
 
-    return {"message": "Rupture analysis completed"}
+    return {"message": "Rupture analysis Launched", "taskId": taskId}
 
 @app.get("/correlation")
-def get_correlation(param1 : str, param2 : str):
+def get_correlation(param1 : str, param2 : str, background_tasks: BackgroundTasks):
     # raise and error if the param is not authorized
     for param in [param1, param2]:
         if param not in AUTHORIZED_COLUMNS:
             raise HTTPException(status_code=401, detail="Unauthorized column")
     
     # launch correlation analysis
-    correlation(influxDbClient, param1, param2)
+    taskId = str(uuid.uuid4())
+    update_task_status(taskId, "IN_PROGRESS")
+    background_tasks.add_task(correlation, influxDbClient, param1, param2, taskId)
 
-    return {"message": "Correlation analysis completed"}
+    return {"message": "Correlation analysis Launched", "taskId": taskId}
+
+@app.get("/status")
+def get_status(taskId: str):
+    status = get_task_status(taskId)
+    if not status:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return {"status": status}
 
 
 if __name__ == "__main__":

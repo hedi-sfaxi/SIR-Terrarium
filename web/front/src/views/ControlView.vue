@@ -32,12 +32,14 @@
                         <v-combobox clearable chips multiple label="metrics" v-model="selectedMetrics" :items="items"
                             variant="outlined"></v-combobox>
                     </div>
+                    <AnalysisChip v-if="correlationTaskId" :taskId="correlationTaskId" :forRupture="false" />
                     <v-btn color="primary" @click="correlate()">
                         {{ $t("controlView.analysis.correlation") }}
                     </v-btn>
                 </div>
                 <div class="d-flex justify-space-around">
                     <p>{{ $t("controlView.analysis.ruptureText") }}</p>
+                    <AnalysisChip v-if="ruptureTaskId" :taskId="ruptureTaskId" :forRupture="true" />
                     <v-btn color="primary" @click="rupture">
                         {{ $t("controlView.analysis.rupture") }}
                     </v-btn>
@@ -50,18 +52,22 @@
 <script>
 import SimpleSection from '../components/SimpleSection.vue';
 import Snackbar from '../components/SnackBar.vue';
+import AnalysisChip from '../components/AnalysisChip.vue';
 import utils from '../utils';
 export default {
     data() {
         return {
             imageSrc: "https://img-3.journaldesfemmes.fr/55Pa2VVqjc0hXSevl8ddLxHV53Y=/1500x/smart/6f75f95c0d54470fa206aa78fe6ed3a8/ccmcms-jdf/39925288.jpg", // Replace with your image URL
             selectedMetrics: [],
-            items: []
+            items: [],
+            correlationTaskId: '',
+            ruptureTaskId: ''
         };
     },
     components: {
         SimpleSection,
-        Snackbar
+        Snackbar,
+        AnalysisChip
     },
     async mounted() {
         this.items = await this.getColumns();
@@ -81,17 +87,35 @@ export default {
         },
 
         async correlate() {
-            this.$store.commit('setVisible', true);
-            let message = await utils.correlate(this.selectedMetrics[0], this.selectedMetrics[1]);
-            this.$store.commit('setColor', message.color);
-            this.$store.commit('setText', message.text);
+            if (this.$store.state.analysis.correlationRunning || this.selectedMetrics.length !== 2) {
+                this.$store.commit('setVisible', true);
+                this.$store.commit('setColor', 'warning');
+                this.$store.commit('setText', 'controlView.analysis.correlationRunning');
+            } else {
+                this.correlationTaskId = '';
+                this.$store.commit("setCorrelationRunning", true);
+                this.$store.commit('setVisible', true);
+                let message = await utils.correlate(this.selectedMetrics[0], this.selectedMetrics[1]);
+                this.$store.commit('setColor', message.color);
+                this.$store.commit('setText', message.text);
+                this.correlationTaskId = message.taskId;
+            }
         },
 
         async rupture() {
-            this.$store.commit('setVisible', true);
-            let message = await utils.rupture();
-            this.$store.commit('setColor', message.color);
-            this.$store.commit('setText', message.text);
+            if (this.$store.state.analysis.ruptureRunning) {
+                this.$store.commit('setVisible', true);
+                this.$store.commit('setColor', 'warning');
+                this.$store.commit('setText', 'controlView.analysis.ruptureRunning');
+            } else {
+                this.ruptureTaskId = '';
+                this.$store.commit("setRuptureRunning", true);
+                this.$store.commit('setVisible', true);
+                let message = await utils.rupture();
+                this.$store.commit('setColor', message.color);
+                this.$store.commit('setText', message.text);
+                this.ruptureTaskId = message.taskId;
+            }
         },
 
         async irrigate() {
@@ -104,15 +128,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.grid-container {
-    display: grid;
-    justify-content: center;
-}
-
-.center {
-    text-align: center;
-}
-
-/* Add your custom styles here */
-</style>
+<style scoped></style>

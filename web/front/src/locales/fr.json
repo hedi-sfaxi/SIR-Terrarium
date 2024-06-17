@@ -10,7 +10,14 @@
             "rupture": "Rupture",
             "correlation": "Correlation",
             "ruptureText": "Mettre à jour l'analyse de rupture",
-            "intro": "Ici, vous pouvez exécuter des analyses sur les données collectées par les capteurs pour mieux exploiter les métriques."
+            "intro": "Ici, vous pouvez exécuter des analyses sur les données collectées par les capteurs pour mieux exploiter les métriques.",
+            "status": {
+                "success": "OK",
+                "inProgress": "En cours",
+                "error": "Erreur"
+            },
+            "correlationRunning": "Verifier les paramètres et assurer vous que aucune analyse de corrélation n'est en cours.",
+            "ruptureRunning": "Assurer vous que aucune analyse de rupture n'est en cours."
         },
         "directActions": {
             "title": "ACTIONS DIRECTES",
@@ -28,5 +35,6 @@
         "correlation_ko": "Erreur lors de la mise à jour de l'analyse de corrélation",
         "irrigate_ok": "Irrigation démarrée avec succès",
         "irrigate_ko": "Erreur lors du démarrage de l'irrigation"
-    }
+    },
+    "": ""
 }

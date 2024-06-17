@@ -29,10 +29,10 @@ const irrigate = async () => {
 }
 
 const correlate = async (metric1, metric2) => {
-    let result = { text: "utils.correlation_ko", color: "error" }
+    let result = { text: "utils.correlation_ko", color: "error", taskId: '' }
     try {
-        await instance.get(`/correlation?param1=${metric1}&param2=${metric2}`)
-        result = { text: "utils.correlation_ok", color: "success" }
+        const response = await instance.get(`/correlation?param1=${metric1}&param2=${metric2}`)
+        result = { text: "utils.correlation_ok", color: "success", taskId: response.data.taskId }
     } catch (err) {
         console.log(err)
     }
@@ -40,14 +40,26 @@ const correlate = async (metric1, metric2) => {
 }
 
 const rupture = async () => {
-    let result = { text: "utils.rupture_ko", color: "error" }
+    let result = { text: "utils.rupture_ko", color: "error", taskId: '' }
     try {
-        await instance.get("/ruptures")
-        result = { text: "utils.rupture_ok", color: "success" }
+        const response = await instance.get("/ruptures")
+        result = { text: "utils.rupture_ok", color: "success", taskId: response.data.taskId }
     } catch (err) {
         console.log(err)
     }
     return result
 }
 
-export default { getColumns, irrigate, correlate, rupture }
+const getTaskStatus = async (taskId) => {
+    let result = { status: 'IN_PROGRESS' }
+    try {
+        const response = await instance.get(`/status?taskId=${taskId}`)
+        result = response.data
+    } catch (err) {
+        console.log(err)
+        result = { status: 'FAILED' }
+    }
+    return result
+}
+
+export default { getColumns, irrigate, correlate, rupture, getTaskStatus }

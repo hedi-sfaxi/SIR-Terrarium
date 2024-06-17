@@ -7,6 +7,10 @@ const store = createStore({
                 visible: false,
                 color: "success",
                 text: "",
+            },
+            analysis: {
+                correlationRunning: false,
+                ruptureRunning: false,
             }
         }
     },
@@ -22,8 +26,16 @@ const store = createStore({
 
         setText(state, value) {
             state.snackbar.text = value
-        }
-    },
+        },
+
+        setCorrelationRunning(state, value) {
+            state.analysis.correlationRunning = value
+        },
+
+        setRuptureRunning(state, value) {
+            state.analysis.ruptureRunning = value
+        },
+    }
 })
 
 export default store
