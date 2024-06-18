@@ -67,7 +67,7 @@ void DataBroker::publish(const char *topic)
     this->client.publish(topic, buffer);
 }
 
-void DataBroker::callback(char *topic, byte *payload, unsigned int length)
+void callback(char *topic, byte *payload, unsigned int length)
 {
     Serial.print("Message arrived in topic: ");
     Serial.println(topic);

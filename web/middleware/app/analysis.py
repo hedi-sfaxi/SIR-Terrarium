@@ -4,10 +4,17 @@ from influxdb import InfluxDBClient
 from utils import fetch_sensors_data, insert_correlation_to_influxdb, calculate_correlation, insert_ruptures_to_influxdb, analyze_ruptures
 
 def correlation(client : InfluxDBClient, param1: str, param2: str, task_id: str, taskManager: TaskManager):
+    
+    # make the sort the parameters in alphabetical order
+    params = [param1, param2]
+    params.sort()
+    param1 = params[0]
+    param2 = params[1]
+
     try:
         data = fetch_sensors_data(client, [param1, param2])
         correlation_data = calculate_correlation(data[param1], data[param2])
-        insert_correlation_to_influxdb(client, data['time'], correlation_data, f"{param1}_{param2}_correlation") #TODO: manage measurement name
+        insert_correlation_to_influxdb(client, data['time'], correlation_data, f"{param1}_{param2}_correlation")
 
         logging.info("Correlation data has been written to InfluxDB.")
         taskManager.update_task_status(task_id, "SUCCESS")
