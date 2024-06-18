@@ -38,7 +38,6 @@ public:
     bool isConnected();
     inline void setData(StaticJsonDocument<80> data) { this->data = data; };
     void init(const char *mqtt_server, const int mqtt_port);
-    void callback(char *topic, byte *payload, unsigned int length);
     inline void listen() { this->client.loop(); };
 
 private:
@@ -46,5 +45,8 @@ private:
     PubSubClient client = PubSubClient(espClient);
     StaticJsonDocument<80> data;
 };
+
+
+void callback(char *topic, byte *payload, unsigned int length); //callback should be a free function
 
 #endif
