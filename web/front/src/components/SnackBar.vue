@@ -20,7 +20,7 @@
 <script>
 export default {
     data: () => ({
-        timeout: 3000
+        timeout: 5000
     }),
 
     computed: {
