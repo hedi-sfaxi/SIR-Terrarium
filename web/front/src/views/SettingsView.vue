@@ -2,7 +2,8 @@
     <div>
         <v-form @submit="submitForm">
             <v-container>
-                <h1 class="display-1">Mail alert configuration</h1>
+                <h1 class="display-1">{{ $t("systemSettings.mailAlert.title") }}</h1>
+                <p>{{ $t("systemSettings.mailAlert.description") }}</p>
                 <br>
                 <v-row>
                     <v-col cols="12" sm="6">
