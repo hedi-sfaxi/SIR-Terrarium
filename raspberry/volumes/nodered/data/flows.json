@@ -19,7 +19,7 @@
         "id": "706961626330ec25",
         "type": "mqtt-broker",
         "name": "MQTT Docker",
-        "broker": "192.168.69.85",
+        "broker": "192.168.50.1",
         "port": "1883",
         "clientid": "",
         "autoConnect": true,
@@ -49,7 +49,7 @@
     {
         "id": "f6220e32e145d684",
         "type": "influxdb",
-        "hostname": "192.168.69.85",
+        "hostname": "192.168.50.1",
         "port": "8086",
         "protocol": "http",
         "database": "sensor_data",
@@ -96,7 +96,7 @@
         "retentionPolicyV18Flux": "",
         "org": "organisation",
         "bucket": "bucket",
-        "x": 800,
+        "x": 790,
         "y": 160,
         "wires": []
     },
