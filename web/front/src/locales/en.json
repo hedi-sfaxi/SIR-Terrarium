@@ -2,7 +2,8 @@
 	"nav": {
 		"title": "SIR - Terrarium",
 		"dashboard": "Dashboards",
-		"control": "Controls"
+		"control": "Controls",
+		"settings": "Settings"
 	},
 	"controlView": {
 		"analysis": {

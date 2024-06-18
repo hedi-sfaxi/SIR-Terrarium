@@ -2,7 +2,8 @@
     "nav": {
         "title": "SIR - Terrarium",
         "dashboard": "Tableau de bord",
-        "control": "Contrôles"
+        "control": "Contrôles",
+        "settings": "Paramètres"
     },
     "controlView": {
         "analysis": {
