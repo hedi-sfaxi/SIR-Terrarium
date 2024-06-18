@@ -4,12 +4,12 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks
 from influxdb import InfluxDBClient
 from analysis import correlation, ruptures
 from sensor_node import irrigate
-from utils import update_task_status, get_task_status, init_task_status
+from dto import TaskManager
 
 app = FastAPI()
 influxDbClient = InfluxDBClient(host='influxdb', port=8086)
 AUTHORIZED_COLUMNS = ['temperature', 'humidity', 'light', 'moisture', 'pH']
-init_task_status()
+taskManager = TaskManager()
 
 @app.get("/")
 def get_root():
@@ -29,8 +29,8 @@ def get_irrigate():
 def get_rupture(background_tasks: BackgroundTasks):
     # launch rupture analysis
     taskId = str(uuid.uuid4())
-    update_task_status(taskId, "IN_PROGRESS")
-    background_tasks.add_task(ruptures, influxDbClient, AUTHORIZED_COLUMNS, taskId)
+    taskManager.update_task_status(taskId, "IN_PROGRESS")
+    background_tasks.add_task(ruptures, influxDbClient, AUTHORIZED_COLUMNS, taskId, taskManager)
 
     return {"message": "Rupture analysis Launched", "taskId": taskId}
 
@@ -43,18 +43,18 @@ def get_correlation(param1 : str, param2 : str, background_tasks: BackgroundTask
     
     # launch correlation analysis
     taskId = str(uuid.uuid4())
-    update_task_status(taskId, "IN_PROGRESS")
-    background_tasks.add_task(correlation, influxDbClient, param1, param2, taskId)
+    taskManager.update_task_status(taskId, "IN_PROGRESS")
+    background_tasks.add_task(correlation, influxDbClient, param1, param2, taskId, taskManager)
 
     return {"message": "Correlation analysis Launched", "taskId": taskId}
 
 @app.get("/status")
 def get_status(taskId: str):
-    status = get_task_status(taskId)
+    status = taskManager.get_task_status(taskId)
     if not status:
         raise HTTPException(status_code=404, detail="Task not found")
     return {"status": status}
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8082, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8082, workers=4)

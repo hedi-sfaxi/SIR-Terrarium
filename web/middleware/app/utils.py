@@ -63,27 +63,3 @@ def insert_ruptures_to_influxdb(client : InfluxDBClient, time_data, rupture_poin
         for point in rupture_points
     ]
     client.write_points(points)
-
-
-"""
-Task statuses
-"""
-task_statuses = {}
-
-"""
-Initialize the task statuses
-"""
-def init_task_status():
-    task_statuses.clear()
-
-"""
-Get the status of a task
-"""
-def get_task_status(taskId):
-    return task_statuses.get(taskId, None)
-
-"""
-Update the status of a task
-"""
-def update_task_status(taskId, status):
-    task_statuses[taskId] = status
