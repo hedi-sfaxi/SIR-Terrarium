@@ -2,7 +2,7 @@
 #include "networkManager.h"
 
 SensorsManager sensorsManager;
-WiFiController wc = WiFiController("your_wifi_ssid", "your_wifi_password");
+WiFiController wc = WiFiController("rpi-server", "raspberry");
 DataBroker broker;
 long lastMsg = 0;
 
@@ -26,8 +26,12 @@ void setup()
   Serial.print("IP address: ");
   Serial.println(wc.getLocalIP());
 
-  Serial.println("Let's init the broker");
-  broker.init("192.168.85.85", 1883);
+  Serial.print("Let's init the broker at ");
+  Serial.println(wc.getGatewayIP());
+  IPAddress gatewayIP = wc.getGatewayIP();
+  char ipStr[16];
+  sprintf(ipStr, "%d.%d.%d.%d", gatewayIP[0], gatewayIP[1], gatewayIP[2], gatewayIP[3]);
+  broker.init(ipStr, 1883);
 }
 
 void loop()
