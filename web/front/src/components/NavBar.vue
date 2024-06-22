@@ -34,7 +34,8 @@ export default {
         drawer: false,
         items: [
             { title: "nav.dashboard", icon: "mdi-view-dashboard", route: "/" },
-            { title: "nav.control", icon: "mdi-gamepad-variant", route: "/control" }
+            { title: "nav.control", icon: "mdi-gamepad-variant", route: "/control" },
+            { title: "nav.settings", icon: "mdi-cog", route: "/settings" },
         ]
     }),
 

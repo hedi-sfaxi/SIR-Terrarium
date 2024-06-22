@@ -2,7 +2,8 @@
 	"nav": {
 		"title": "SIR - Terrarium",
 		"dashboard": "Dashboards",
-		"control": "Controls"
+		"control": "Controls",
+		"settings": "Settings"
 	},
 	"controlView": {
 		"analysis": {
@@ -36,5 +37,10 @@
 		"irrigate_ok": "Irrigation started successfully",
 		"irrigate_ko": "Error starting irrigation"
 	},
-	"": ""
+	"systemSettings": {
+		"mailAlert": {
+			"title": "Mail alert configuration",
+			"description": "The mail address here provided will be used to SEND alerts to the user"
+		}
+	}
 }
