@@ -12,7 +12,7 @@ def fetch_sensors_data(client : InfluxDBClient, params: list):
     results = client.query(query)
     points = list(results.get_points())
 
-    sortie = {param : np.array([point[param] for point in points], dtype=float) for param in params}
+    sortie = {param : np.array([0 if point[param] is None else point[param] for point in points], dtype=float) for param in params}
     sortie['time'] = [point['time'] for point in points]
 
     return sortie

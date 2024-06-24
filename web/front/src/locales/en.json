@@ -24,7 +24,8 @@
 			"intro": "Here, you can perform actions directly on the terrarium.",
 			"irrigate": "Irrigate",
 			"light": "Turn on the light"
-		}
+		},
+		"camMessage": "You can modify image settings on the stream server link"
 	},
 	"utils": {
 		"columns_ok": "Metrics list fetched successfully",

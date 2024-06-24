@@ -19,8 +19,9 @@
                     </v-btn>
                 </div>
 
-                <div class="center my-5">
-                    <img :src="imageSrc" alt="Terrarium Live Image" style="width: 500px;">
+                <div class="text-center my-5">
+                    <img :src="imageSrc" alt="Terrarium Live Image">
+                    <p>{{ $t("controlView.camMessage") }}</p>
                 </div>
             </div>
         </SimpleSection>
@@ -57,7 +58,7 @@ import utils from '../utils';
 export default {
     data() {
         return {
-            imageSrc: "https://img-3.journaldesfemmes.fr/55Pa2VVqjc0hXSevl8ddLxHV53Y=/1500x/smart/6f75f95c0d54470fa206aa78fe6ed3a8/ccmcms-jdf/39925288.jpg", // Replace with your image URL
+            imageSrc: process.env.VUE_APP_CAM_STREAM_URL,
             selectedMetrics: [],
             items: [],
             correlationTaskId: '',
