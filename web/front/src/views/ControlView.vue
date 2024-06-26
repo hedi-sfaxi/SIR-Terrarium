@@ -19,8 +19,8 @@
                     </v-btn>
                 </div>
 
-                <div class="text-center my-5">
-                    <img :src="imageSrc" alt="Terrarium Live Image">
+                <div class="my-5">
+                    <LiveStream :imageSrc="imageSrc" :centered=true />
                     <p>{{ $t("controlView.camMessage") }}</p>
                 </div>
             </div>
@@ -54,6 +54,7 @@
 import SimpleSection from '../components/SimpleSection.vue';
 import Snackbar from '../components/SnackBar.vue';
 import AnalysisChip from '../components/AnalysisChip.vue';
+import LiveStream from '../components/LiveStream.vue';
 import utils from '../utils';
 export default {
     data() {
@@ -68,7 +69,8 @@ export default {
     components: {
         SimpleSection,
         Snackbar,
-        AnalysisChip
+        AnalysisChip,
+        LiveStream
     },
     async mounted() {
         this.items = await this.getColumns();
